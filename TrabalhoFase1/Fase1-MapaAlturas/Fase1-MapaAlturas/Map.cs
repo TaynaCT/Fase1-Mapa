@@ -58,7 +58,7 @@ namespace Fase1_MapaAlturas
             effect.World = worldMatrix;
 
             effect.CurrentTechnique.Passes[0].Apply();
-            device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, vertices, 0,(texture.Height * texture.Width) /2);
+            device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, vertices, 0,(texture.Height * texture.Width)-2);
         }
 
     }

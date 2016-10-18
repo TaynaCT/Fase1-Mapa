@@ -24,3 +24,29 @@ D:\Docs\EDJD\2 ANO\IP3D\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x8
 D:\Docs\EDJD\2 ANO\IP3D\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.exe
 D:\Docs\EDJD\2 ANO\IP3D\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.pdb
 D:\Docs\EDJD\2 ANO\IP3D\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\Content\lh3d1.jpg
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.exe
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.pdb
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\Content\lh3d1.jpg
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\Fase1-MapaAlturas.exe
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\Fase1-MapaAlturas.pdb
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.RawInput.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.RawInput.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.csprojResolveAssemblyReference.cache
