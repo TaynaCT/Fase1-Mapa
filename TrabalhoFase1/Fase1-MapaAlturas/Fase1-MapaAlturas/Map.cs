@@ -29,12 +29,12 @@ namespace Fase1_MapaAlturas
             //camera
             float aspectRatio = (float)device.Viewport.Width / device.Viewport.Height;
             effect.View = Matrix.CreateLookAt(
-                new Vector3(3f, 3.0f, 3f),
-                Vector3.Zero, Vector3.Up);
+                new Vector3(0f, 300.0f, 0f),
+                new Vector3(1500,0,1500), Vector3.Up);
 
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45f),
-                aspectRatio, 1f, 10f);
+                MathHelper.ToRadians(60f),
+                aspectRatio, 1f, 1000f);
 
             effect.LightingEnabled = false;
             effect.VertexColorEnabled = true;          
@@ -59,12 +59,18 @@ namespace Fase1_MapaAlturas
             //organização dos index
             index = new short[6 * (texture.Height - 1) * (texture.Width - 1)]; // index.Length = texels.Length
 
-            for (int z = 0; z < texture.Height; z++)
+            for (int z = 0; z < texture.Height-1; z++)
             {
-                for (int x = 0; x < texture.Width; x++)
+                for (int x = 0; x < texture.Width-1; x++)
                 {
-                    index[(z * texture.Width + x) * 2] = (short)(z * texture.Width + x);
-                    index[(z * texture.Width + x) * 2 + 1] = (short)(z * texture.Width + x + 1);                    
+
+                    index[(z * (texture.Width-1) + x) * 6] = (short)(x + z * texture.Width);
+                    index[(z * (texture.Width-1) + x) * 6 + 1] = (short)(x + 1 + (z + 1) * texture.Width);
+                    index[(z * (texture.Width-1) + x) * 6 + 2] = (short)(x + (z + 1) * texture.Width);
+                    index[(z * (texture.Width-1) + x) * 6 + 3] = (short)(x + z * texture.Width);
+                    index[(z * (texture.Width-1) + x) * 6 + 4] = (short)(x + 1 + (z * texture.Width));
+                    index[(z * (texture.Width-1) + x) * 6 + 5] = (short)(x + 1 + (z + 1) * texture.Width);
+
                 }
                  
             }
@@ -82,8 +88,9 @@ namespace Fase1_MapaAlturas
             indexBuffer.SetData(index);
         }
 
-        public void Draw(GraphicsDevice device)
+        public void Draw(GraphicsDevice device, Matrix view)
         {
+            effect.View = view;
             effect.World = worldMatrix;
             effect.CurrentTechnique.Passes[0].Apply();
             device.SetVertexBuffer(vertexBuffer);

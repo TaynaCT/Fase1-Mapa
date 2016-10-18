@@ -14,6 +14,12 @@ namespace Fase1_MapaAlturas
 
         Map mapa;
 
+        Vector3 cameraDirection = Vector3.Forward;
+        Vector3 cameraPosition = Vector3.Up*10;
+
+        private Point lastMousePosition;
+        private Vector2 _mouseSensitivity = new Vector2(.01f, .005f);
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -65,8 +71,19 @@ namespace Fase1_MapaAlturas
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            var mouseDelta = (Mouse.GetState().Position - lastMousePosition).ToVector2() * _mouseSensitivity;
+            var cameraRight = Vector3.Cross(cameraDirection, Vector3.Up);
+
+            cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(Vector3.Up, -mouseDelta.X));
+            cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(cameraRight, -mouseDelta.Y));
+            cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Right) ? 1 : 0) -
+                               (Keyboard.GetState().IsKeyDown(Keys.Left) ? 1 : 0)) * cameraRight;
+            cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Up) ? 1 : 0) -
+                               (Keyboard.GetState().IsKeyDown(Keys.Down) ? 1 : 0)) * cameraDirection;
+
             // TODO: Add your update logic here
 
+            lastMousePosition = Mouse.GetState().Position;
             base.Update(gameTime);
         }
 
@@ -78,7 +95,7 @@ namespace Fase1_MapaAlturas
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            mapa.Draw(GraphicsDevice);
+            mapa.Draw(GraphicsDevice, Matrix.CreateLookAt(cameraPosition,cameraPosition+cameraDirection,Vector3.Up));
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
