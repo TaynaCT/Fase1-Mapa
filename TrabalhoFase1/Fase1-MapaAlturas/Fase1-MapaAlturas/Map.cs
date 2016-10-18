@@ -69,21 +69,23 @@ namespace Fase1_MapaAlturas
                 BufferUsage.None);
             indexBuffer.SetData(index);
 
-            index = new short[texels.Length]; // index.Length = texels.Length
+            index = new short[texture.Height * 2]; // index.Length = texels.Length
 
             //organização dos indices
             for (int i = 0; i < index.Length+1; i++)
             {
-
+                index[i] = (short)i;
             }
         }
 
         public void Draw(GraphicsDevice device)
         {
             effect.World = worldMatrix;
-
             effect.CurrentTechnique.Passes[0].Apply();
-            device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, vertices, 0,(texture.Height * texture.Width)-2);
+            device.SetVertexBuffer(vertexBuffer);
+            device.Indices = indexBuffer;
+            
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0,(texture.Height * texture.Width)-2);
         }
 
     }
