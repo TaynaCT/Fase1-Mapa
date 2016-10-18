@@ -54,14 +54,23 @@ namespace Fase1_MapaAlturas
                     vertex[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);                                        
                 }
             }
+
+            //organização dos index
             index = new short[6 * (texture.Height - 1) * (texture.Width - 1)]; // index.Length = texels.Length
-
-            //organização dos indices
-            for (int i = 0; i < index.Length+1; i++)
-            {
-                index[i] = (short)i;
-            }
-
+            int number = 0;
+            // collect data for corners
+            for (int y = 0; y < texture.Height - 1; y++)
+                for (int x = 0; x < texture.Width - 1; x++)
+                {
+                    // create double triangles
+                    index[number] =(short) (x + (y + 1) * texture.Width);    // up left
+                    index[number + 1] = (short)(x + y * texture.Width + 1);        // down right
+                    index[number + 2] = (short) (x + y * texture.Width);            // down left
+                    index[number + 3] = (short) (x + (y + 1) * texture.Width);      // up left
+                    index[number + 4] = (short)(x + (y + 1) * texture.Width + 1);  // up right
+                    index[number + 5] = (short)(x + y * texture.Width + 1);        // down right
+                    number += 6;
+                }
 
             vertexBuffer = new VertexBuffer(device,
                 typeof(VertexPositionColor),
@@ -83,7 +92,7 @@ namespace Fase1_MapaAlturas
             device.SetVertexBuffer(vertexBuffer);
             device.Indices = indexBuffer;
 
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, index.Length / 3);
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, index.Length / 3);
         }
 
     }
