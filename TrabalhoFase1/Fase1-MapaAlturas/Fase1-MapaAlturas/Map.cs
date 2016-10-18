@@ -16,12 +16,17 @@ namespace Fase1_MapaAlturas
         Color[] texels;
         Texture2D texture;
         VertexPositionColor[] vertices;
-        //short[] indice;
+        short[] index;
+        VertexBuffer vertexBuffer;
+        IndexBuffer indexBuffer;
+
         
         public Map(GraphicsDevice device, ContentManager content)
         {
+            //matriz identidade do mundo 
             worldMatrix = Matrix.Identity;
             effect = new BasicEffect(device);
+
             //camera
             float aspectRatio = (float)device.Viewport.Width / device.Viewport.Height;
             effect.View = Matrix.CreateLookAt(
@@ -41,15 +46,35 @@ namespace Fase1_MapaAlturas
             texture.GetData(texels);
             vertices = new VertexPositionColor[texels.Length];
 
+            //Gerar vertices
             for (int z = 0; z < texture.Height; z++)
             {
                 for (int x = 0; x < texture.Width; x++)
                 {
-                    float y = (texels[z * texture.Width + x].R)/255;
+                    float y = (texels[z * texture.Width + x].R);
 
-                    vertices[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y, z), texels[z * texture.Width + x]);
+                    vertices[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);
                                         
                 }
+            }
+
+            vertexBuffer = new VertexBuffer(device, typeof(VertexPositionColor),
+                vertices.Length,
+                BufferUsage.None);
+            vertexBuffer.SetData<VertexPositionColor>(vertices);
+
+            indexBuffer = new IndexBuffer(device,
+                typeof(short),
+                index.Length,
+                BufferUsage.None);
+            indexBuffer.SetData(index);
+
+            index = new short[texels.Length]; // index.Length = texels.Length
+
+            //organização dos indices
+            for (int i = 0; i < index.Length+1; i++)
+            {
+
             }
         }
 
