@@ -46,31 +46,28 @@ namespace Fase1_MapaAlturas
             vertex = new VertexPositionColor[texels.Length];
 
             //Gerar vertices
+            int y;
             for (int z = 0; z < texture.Height; z++)
             {
                 for (int x = 0; x < texture.Width; x++)
                 {
-                    float y = (texels[z * texture.Width + x].R);
+                    y = (texels[z * texture.Width + x].R);
                     vertex[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);                                        
                 }
             }
 
             //organização dos index
             index = new short[6 * (texture.Height - 1) * (texture.Width - 1)]; // index.Length = texels.Length
-            int number = 0;
-            // collect data for corners
-            for (int y = 0; y < texture.Height - 1; y++)
-                for (int x = 0; x < texture.Width - 1; x++)
+
+            for (int z = 0; z < texture.Height; z++)
+            {
+                for (int x = 0; x < texture.Width; x++)
                 {
-                    // create double triangles
-                    index[number] =(short) (x + (y + 1) * texture.Width);    // up left
-                    index[number + 1] = (short)(x + y * texture.Width + 1);        // down right
-                    index[number + 2] = (short) (x + y * texture.Width);            // down left
-                    index[number + 3] = (short) (x + (y + 1) * texture.Width);      // up left
-                    index[number + 4] = (short)(x + (y + 1) * texture.Width + 1);  // up right
-                    index[number + 5] = (short)(x + y * texture.Width + 1);        // down right
-                    number += 6;
+                    index[(z * texture.Width + x) * 2] = (short)(z * texture.Width + x);
+                    index[(z * texture.Width + x) * 2 + 1] = (short)(z * texture.Width + x + 1);                    
                 }
+                 
+            }
 
             vertexBuffer = new VertexBuffer(device,
                 typeof(VertexPositionColor),
@@ -92,7 +89,7 @@ namespace Fase1_MapaAlturas
             device.SetVertexBuffer(vertexBuffer);
             device.Indices = indexBuffer;
 
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, index.Length / 3);
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, texels.Length/3);
         }
 
     }
