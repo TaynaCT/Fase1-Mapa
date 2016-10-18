@@ -37,20 +37,7 @@ namespace Fase1_MapaAlturas
                 aspectRatio, 1f, 10f);
 
             effect.LightingEnabled = false;
-            effect.VertexColorEnabled = true;
-
-            vertexBuffer = new VertexBuffer(device, 
-                typeof(VertexPositionColor),
-                vertex.Length,
-                BufferUsage.None);
-            vertexBuffer.SetData<VertexPositionColor>(vertex);
-
-            indexBuffer = new IndexBuffer(device,
-                typeof(short),
-                index.Length,
-                BufferUsage.None);
-            indexBuffer.SetData(index);
-
+            effect.VertexColorEnabled = true;          
             
             //Indexação dos vertices do mapa, a partir dos valores rgb da textura
             texture = content.Load<Texture2D>("lh3d1");
@@ -67,14 +54,25 @@ namespace Fase1_MapaAlturas
                     vertex[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);                                        
                 }
             }
-
-            index = new short[texture.Height * 2]; // index.Length = texels.Length
+            index = new short[6 * (texture.Height - 1) * (texture.Width - 1)]; // index.Length = texels.Length
 
             //organização dos indices
             for (int i = 0; i < index.Length+1; i++)
             {
                 index[i] = (short)i;
             }
+
+            vertexBuffer = new VertexBuffer(device,
+                typeof(VertexPositionColor),
+                vertex.Length,
+                BufferUsage.None);
+            vertexBuffer.SetData<VertexPositionColor>(vertex);
+
+            indexBuffer = new IndexBuffer(device,
+                typeof(short),
+                index.Length,
+                BufferUsage.None);
+            indexBuffer.SetData(index);
         }
 
         public void Draw(GraphicsDevice device)
@@ -83,8 +81,8 @@ namespace Fase1_MapaAlturas
             effect.CurrentTechnique.Passes[0].Apply();
             device.SetVertexBuffer(vertexBuffer);
             device.Indices = indexBuffer;
-            
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0,(texture.Height * texture.Width)-2);
+
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, index.Length / 3);
         }
 
     }
