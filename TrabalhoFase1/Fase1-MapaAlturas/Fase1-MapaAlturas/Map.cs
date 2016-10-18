@@ -62,6 +62,7 @@ namespace Fase1_MapaAlturas
                 index[i] = (short)i;
             }
 
+
             vertexBuffer = new VertexBuffer(device,
                 typeof(VertexPositionColor),
                 vertex.Length,
