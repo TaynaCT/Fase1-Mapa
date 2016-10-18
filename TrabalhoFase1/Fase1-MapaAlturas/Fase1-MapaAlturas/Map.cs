@@ -15,11 +15,10 @@ namespace Fase1_MapaAlturas
         Matrix worldMatrix;
         Color[] texels;
         Texture2D texture;
-        VertexPositionColor[] vertices;
+        VertexPositionColor[] vertex;
         short[] index;
         VertexBuffer vertexBuffer;
         IndexBuffer indexBuffer;
-
         
         public Map(GraphicsDevice device, ContentManager content)
         {
@@ -40,11 +39,24 @@ namespace Fase1_MapaAlturas
             effect.LightingEnabled = false;
             effect.VertexColorEnabled = true;
 
+            vertexBuffer = new VertexBuffer(device, 
+                typeof(VertexPositionColor),
+                vertex.Length,
+                BufferUsage.None);
+            vertexBuffer.SetData<VertexPositionColor>(vertex);
+
+            indexBuffer = new IndexBuffer(device,
+                typeof(short),
+                index.Length,
+                BufferUsage.None);
+            indexBuffer.SetData(index);
+
+            
             //Indexação dos vertices do mapa, a partir dos valores rgb da textura
             texture = content.Load<Texture2D>("lh3d1");
             texels = new Color[texture.Height*texture.Width]; // tamanho do array = a autura * a largura da img
             texture.GetData(texels);
-            vertices = new VertexPositionColor[texels.Length];
+            vertex = new VertexPositionColor[texels.Length];
 
             //Gerar vertices
             for (int z = 0; z < texture.Height; z++)
@@ -52,22 +64,9 @@ namespace Fase1_MapaAlturas
                 for (int x = 0; x < texture.Width; x++)
                 {
                     float y = (texels[z * texture.Width + x].R);
-
-                    vertices[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);
-                                        
+                    vertex[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);                                        
                 }
             }
-
-            vertexBuffer = new VertexBuffer(device, typeof(VertexPositionColor),
-                vertices.Length,
-                BufferUsage.None);
-            vertexBuffer.SetData<VertexPositionColor>(vertices);
-
-            indexBuffer = new IndexBuffer(device,
-                typeof(short),
-                index.Length,
-                BufferUsage.None);
-            indexBuffer.SetData(index);
 
             index = new short[texture.Height * 2]; // index.Length = texels.Length
 
