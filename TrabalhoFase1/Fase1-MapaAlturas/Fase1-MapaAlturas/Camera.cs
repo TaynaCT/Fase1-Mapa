@@ -10,7 +10,7 @@ namespace Fase1_MapaAlturas
 {
     class Camera
     {
-        //vetor de direção da camera
+        
         Vector3 cameraDirection = Vector3.Forward;
         Vector3 cameraPosition = Vector3.Up * 10;
 
@@ -22,13 +22,14 @@ namespace Fase1_MapaAlturas
 
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             var mouseDelta = (Mouse.GetState().Position - lastMousePosition).ToVector2() * _mouseSensitivity;
             var cameraRight = Vector3.Cross(cameraDirection, Vector3.Up);
 
             cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(Vector3.Up, -mouseDelta.X));
             cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(cameraRight, -mouseDelta.Y));
+
             cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Right) ? 1 : 0) -
                                (Keyboard.GetState().IsKeyDown(Keys.Left) ? 1 : 0)) * cameraRight;
             cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Up) ? 1 : 0) -

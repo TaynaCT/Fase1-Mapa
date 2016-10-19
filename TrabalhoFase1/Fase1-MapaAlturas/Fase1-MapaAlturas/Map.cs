@@ -30,7 +30,7 @@ namespace Fase1_MapaAlturas
             float aspectRatio = (float)device.Viewport.Width / device.Viewport.Height;
             effect.View = Matrix.CreateLookAt(
                 new Vector3(0f, 300.0f, 0f),
-                new Vector3(1500,0,1500), Vector3.Up);
+                new Vector3(1500, 0, 1500), Vector3.Up);
 
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(60f),
@@ -62,18 +62,17 @@ namespace Fase1_MapaAlturas
             for (int z = 0; z < texture.Height-1; z++)
             {
                 for (int x = 0; x < texture.Width-1; x++)
-                {
-
+                {                    
                     index[(z * (texture.Width-1) + x) * 6] = (short)(x + z * texture.Width);
                     index[(z * (texture.Width-1) + x) * 6 + 1] = (short)(x + 1 + (z + 1) * texture.Width);
                     index[(z * (texture.Width-1) + x) * 6 + 2] = (short)(x + (z + 1) * texture.Width);
                     index[(z * (texture.Width-1) + x) * 6 + 3] = (short)(x + z * texture.Width);
                     index[(z * (texture.Width-1) + x) * 6 + 4] = (short)(x + 1 + (z * texture.Width));
                     index[(z * (texture.Width-1) + x) * 6 + 5] = (short)(x + 1 + (z + 1) * texture.Width);
-
-                }
-                 
+                    
+                }                 
             }
+            
 
             vertexBuffer = new VertexBuffer(device,
                 typeof(VertexPositionColor),
@@ -98,6 +97,6 @@ namespace Fase1_MapaAlturas
 
             device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, texels.Length/3);
         }
-
+                
     }
 }

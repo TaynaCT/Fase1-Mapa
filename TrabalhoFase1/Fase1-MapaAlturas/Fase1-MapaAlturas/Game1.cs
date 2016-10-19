@@ -13,12 +13,8 @@ namespace Fase1_MapaAlturas
         SpriteBatch spriteBatch;
 
         Map mapa;
-
-        Vector3 cameraDirection = Vector3.Forward;
-        Vector3 cameraPosition = Vector3.Up*10;
-
-        private Point lastMousePosition;
-        private Vector2 _mouseSensitivity = new Vector2(.01f, .005f);
+        Camera cam;
+              
 
         public Game1()
         {
@@ -47,7 +43,7 @@ namespace Fase1_MapaAlturas
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            cam = new Camera();
             mapa = new Map(GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
@@ -70,20 +66,10 @@ namespace Fase1_MapaAlturas
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            var mouseDelta = (Mouse.GetState().Position - lastMousePosition).ToVector2() * _mouseSensitivity;
-            var cameraRight = Vector3.Cross(cameraDirection, Vector3.Up);
-
-            cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(Vector3.Up, -mouseDelta.X));
-            cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromAxisAngle(cameraRight, -mouseDelta.Y));
-            cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Right) ? 1 : 0) -
-                               (Keyboard.GetState().IsKeyDown(Keys.Left) ? 1 : 0)) * cameraRight;
-            cameraPosition += ((Keyboard.GetState().IsKeyDown(Keys.Up) ? 1 : 0) -
-                               (Keyboard.GetState().IsKeyDown(Keys.Down) ? 1 : 0)) * cameraDirection;
-
+            cam.Update();
+            
             // TODO: Add your update logic here
-
-            lastMousePosition = Mouse.GetState().Position;
+                        
             base.Update(gameTime);
         }
 
@@ -95,7 +81,7 @@ namespace Fase1_MapaAlturas
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            mapa.Draw(GraphicsDevice, Matrix.CreateLookAt(cameraPosition,cameraPosition+cameraDirection,Vector3.Up));
+            mapa.Draw(GraphicsDevice, cam.View());
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
