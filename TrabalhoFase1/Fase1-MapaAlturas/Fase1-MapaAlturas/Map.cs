@@ -29,13 +29,14 @@ namespace Fase1_MapaAlturas
             effect = new BasicEffect(device);
 
             //textura do mapa
-            groundTexture = content.Load<Texture2D>("GroundGravel_Grass");
+            groundTexture = content.Load<Texture2D>("grassTexture");
             effect.TextureEnabled = true;
             effect.Texture = groundTexture;
 
             float aspectRatio = (float)device.Viewport.Width / device.Viewport.Height;
+
             effect.View = Matrix.CreateLookAt(
-                new Vector3(0f, -300.0f, 0f),
+                new Vector3(0f, 500, 0f),
                 new Vector3(1500, 0, 1500), Vector3.Up);
 
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(
@@ -58,28 +59,35 @@ namespace Fase1_MapaAlturas
                 for (int x = 0; x < texture.Width; x++)
                 {
                     y = (texels[z * texture.Width + x].R);
-                    vertex[z * texture.Width + x] = new VertexPositionColorTexture(new Vector3(x, y * 0.5f, z), Color.White, new Vector2(x%2, z%2));                   
+                    vertex[z * texture.Width + x] = new VertexPositionColorTexture(new Vector3(x, y * 0.5f, z), texels[x], new Vector2(x%2, z%2));                   
                 }
             }
 
             //organização dos index
             index = new short[6 * (texture.Height - 1) * (texture.Width - 1)]; // index.Length = texels.Length
 
-            for (int z = 0; z < texture.Height-1; z++)
+            int a = 0;
+            for (int z = 0; z < texture.Height - 1; z++)
             {
-                for (int x = 0; x < texture.Width-1; x++)
+                int aux = texture.Width - 1;
+                for (int x = 0; x < texture.Width; x++)
                 {
-                    index[(z * (texture.Width - 1) + x) * 6] = (short)(x + (z + 1) * texture.Width);
-                    index[(z * (texture.Width - 1) + x) * 6 + 1] = (short)(x + z * texture.Width);
-                    index[(z * (texture.Width - 1) + x) * 6 + 2] = (short)(x + (z + 1) * texture.Width + 1);
-                    index[(z * (texture.Width - 1) + x) * 6 + 3] = (short)(x + z * texture.Width);
-                    index[(z * (texture.Width - 1) + x) * 6 + 4] = (short)(x + 1 + (z * texture.Width));
-                    index[(z * (texture.Width - 1) + x) * 6 + 5] = (short)(x + 1 + (z + 1) * texture.Width);
+                    //   if (z % 2 == 0)
+                    //{
+                    index[2 * a] = (short)(z * 128 + x + 128);
+                    index[2 * a + 1] = (short)(z * 128 + x);
+                    a++;
+                    /*}
+                    if(z % 2 !=0)
+                    {
+                       index[2 * a] = (short)(z * 128 + aux + 128);
+                       index[2 * a + 1] = (short)(z * 128 + aux);
+                       a++;
+                       aux--;
+                    }*/
+                }
+            }
 
-                }                 
-            }            
-
-           
             vertexBuffer = new VertexBuffer(device,
                 typeof(VertexPositionColorTexture),
                 vertex.Length,
@@ -101,8 +109,13 @@ namespace Fase1_MapaAlturas
             device.SetVertexBuffer(vertexBuffer);
             device.Indices = indexBuffer;
 
-            
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, texels.Length * 6);
+            //device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, texels.Length * 6);
+                        
+            for (int i = 0; i < texture.Height - 1; i++)
+            {
+                device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, texels.Length * 6, i * 256, (texture.Width - 1) * 2);
+            }
+
         }
                 
     }

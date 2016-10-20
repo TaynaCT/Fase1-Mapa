@@ -15,18 +15,19 @@ namespace Fase1_MapaAlturas
         Vector3 position;
 
         private Point lastMousePosition;
-        private Vector2 mouseSensitivity;
+        private Vector2 speed;
 
         public Camera()
-        {
+        {            
             direction = Vector3.Forward;
             position = Vector3.Up * 10;
-            mouseSensitivity = new Vector2(.01f, .005f);
+           // position = new Vector3(0f, 300f, 0f);
+            speed = new Vector2(.01f, .005f);
         }
 
         public void Update()
         {
-            var mouseDelta = (Mouse.GetState().Position - lastMousePosition).ToVector2() * mouseSensitivity;
+            var mouseDelta = (Mouse.GetState().Position - lastMousePosition).ToVector2() * speed;
             var cameraRight = Vector3.Cross(direction, Vector3.Up);// O cross dos dois vetores devolve o vetor direção para a qual a camera deve se mover
 
             direction = Vector3.Transform(direction, Matrix.CreateFromAxisAngle(Vector3.Up, -mouseDelta.X));
@@ -47,7 +48,7 @@ namespace Fase1_MapaAlturas
 
         public Matrix View()
         {
-            Matrix view = Matrix.CreateLookAt(position, position + direction, Vector3.Up);
+            Matrix view = Matrix.CreateLookAt(position, direction + position, Vector3.Up);
             return view;
         }
     }

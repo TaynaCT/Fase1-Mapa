@@ -31,8 +31,11 @@ namespace Fase1_MapaAlturas
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
+            //Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
+            cam = new Camera();
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace Fase1_MapaAlturas
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            cam = new Camera();
+
             mapa = new Map(GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
