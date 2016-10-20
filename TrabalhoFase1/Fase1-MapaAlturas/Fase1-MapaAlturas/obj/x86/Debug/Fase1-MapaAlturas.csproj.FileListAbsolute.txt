@@ -50,3 +50,4 @@ C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1
 C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\obj\x86\Debug\Fase1-MapaAlturas.csprojResolveAssemblyReference.cache
+C:\Users\tayna\Documents\GitHub\Fase1-Mapa\TrabalhoFase1\Fase1-MapaAlturas\Fase1-MapaAlturas\bin\Windows\x86\Debug\Content\GroundGravel_Grass.png

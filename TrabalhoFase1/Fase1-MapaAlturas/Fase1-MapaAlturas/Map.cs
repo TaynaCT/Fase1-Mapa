@@ -11,25 +11,31 @@ namespace Fase1_MapaAlturas
 {
     class Map
     {
-        BasicEffect effect;
+        public BasicEffect effect;
         Matrix worldMatrix;
         Color[] texels;
         Texture2D texture;
-        VertexPositionColor[] vertex;
+        Texture2D groundTexture;
+        VertexPositionColorTexture[] vertex;
         short[] index;
         VertexBuffer vertexBuffer;
         IndexBuffer indexBuffer;
+    
         
         public Map(GraphicsDevice device, ContentManager content)
-        {
+        {            
             //matriz identidade do mundo 
             worldMatrix = Matrix.Identity;
             effect = new BasicEffect(device);
 
-            //camera
+            //textura do mapa
+            groundTexture = content.Load<Texture2D>("GroundGravel_Grass");
+            effect.TextureEnabled = true;
+            effect.Texture = groundTexture;
+
             float aspectRatio = (float)device.Viewport.Width / device.Viewport.Height;
             effect.View = Matrix.CreateLookAt(
-                new Vector3(0f, 300.0f, 0f),
+                new Vector3(0f, -300.0f, 0f),
                 new Vector3(1500, 0, 1500), Vector3.Up);
 
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(
@@ -37,13 +43,13 @@ namespace Fase1_MapaAlturas
                 aspectRatio, 1f, 1000f);
 
             effect.LightingEnabled = false;
-            effect.VertexColorEnabled = true;          
-            
+            effect.VertexColorEnabled = true;
+
             //Indexação dos vertices do mapa, a partir dos valores rgb da textura
             texture = content.Load<Texture2D>("lh3d1");
             texels = new Color[texture.Height*texture.Width]; // tamanho do array = a autura * a largura da img
             texture.GetData(texels);
-            vertex = new VertexPositionColor[texels.Length];
+            vertex = new VertexPositionColorTexture[texels.Length];           
 
             //Gerar vertices
             int y;
@@ -52,7 +58,7 @@ namespace Fase1_MapaAlturas
                 for (int x = 0; x < texture.Width; x++)
                 {
                     y = (texels[z * texture.Width + x].R);
-                    vertex[z * texture.Width + x] = new VertexPositionColor(new Vector3(x, y * 0.5f, z), texels[z * texture.Width + x]);                                        
+                    vertex[z * texture.Width + x] = new VertexPositionColorTexture(new Vector3(x, y * 0.5f, z), Color.White, new Vector2(x%2, z%2));                   
                 }
             }
 
@@ -62,23 +68,23 @@ namespace Fase1_MapaAlturas
             for (int z = 0; z < texture.Height-1; z++)
             {
                 for (int x = 0; x < texture.Width-1; x++)
-                {                    
-                    index[(z * (texture.Width-1) + x) * 6] = (short)(x + z * texture.Width);
-                    index[(z * (texture.Width-1) + x) * 6 + 1] = (short)(x + 1 + (z + 1) * texture.Width);
-                    index[(z * (texture.Width-1) + x) * 6 + 2] = (short)(x + (z + 1) * texture.Width);
-                    index[(z * (texture.Width-1) + x) * 6 + 3] = (short)(x + z * texture.Width);
-                    index[(z * (texture.Width-1) + x) * 6 + 4] = (short)(x + 1 + (z * texture.Width));
-                    index[(z * (texture.Width-1) + x) * 6 + 5] = (short)(x + 1 + (z + 1) * texture.Width);
-                    
-                }                 
-            }
-            
+                {
+                    index[(z * (texture.Width - 1) + x) * 6] = (short)(x + (z + 1) * texture.Width);
+                    index[(z * (texture.Width - 1) + x) * 6 + 1] = (short)(x + z * texture.Width);
+                    index[(z * (texture.Width - 1) + x) * 6 + 2] = (short)(x + (z + 1) * texture.Width + 1);
+                    index[(z * (texture.Width - 1) + x) * 6 + 3] = (short)(x + z * texture.Width);
+                    index[(z * (texture.Width - 1) + x) * 6 + 4] = (short)(x + 1 + (z * texture.Width));
+                    index[(z * (texture.Width - 1) + x) * 6 + 5] = (short)(x + 1 + (z + 1) * texture.Width);
 
+                }                 
+            }            
+
+           
             vertexBuffer = new VertexBuffer(device,
-                typeof(VertexPositionColor),
+                typeof(VertexPositionColorTexture),
                 vertex.Length,
                 BufferUsage.None);
-            vertexBuffer.SetData<VertexPositionColor>(vertex);
+            vertexBuffer.SetData<VertexPositionColorTexture>(vertex);
 
             indexBuffer = new IndexBuffer(device,
                 typeof(short),
@@ -86,16 +92,17 @@ namespace Fase1_MapaAlturas
                 BufferUsage.None);
             indexBuffer.SetData(index);
         }
-
-        public void Draw(GraphicsDevice device, Matrix view)
+                
+        public void Draw(GraphicsDevice device, Matrix cameraView)
         {
-            effect.View = view;
+            effect.View = cameraView;
             effect.World = worldMatrix;
             effect.CurrentTechnique.Passes[0].Apply();
             device.SetVertexBuffer(vertexBuffer);
             device.Indices = indexBuffer;
 
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, texels.Length/3);
+            
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, texels.Length * 6);
         }
                 
     }
